@@ -121,7 +121,10 @@ app.get('/gpt/:text', async (req, res) => {
                 sliced_agent_response = agent_response
             }
             // Remove "Haro: " from the front of the response.
-            sliced_agent_response = sliced_agent_response.substring(sliced_agent_response.search(": ") + 2)
+            let index = sliced_agent_response.search(": ")
+            if (index > 0) {
+                sliced_agent_response = sliced_agent_response.substring(index + 2)
+            }
             res.send(sliced_agent_response)
         } else {
             res.send("Something went wrong. Try again later!")
